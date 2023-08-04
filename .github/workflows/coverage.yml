@@ -1,0 +1,23 @@
+name: coverage
+on: [push]
+env:
+  CI: true
+
+jobs:
+  run:
+    name: node ${{ matrix.node }} on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        node: [16]
+        os: [ubuntu-latest]
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+      - run: npm i
+      - run: npm run test
