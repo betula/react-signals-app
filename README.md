@@ -2,6 +2,8 @@
 
 _React application framework based on [Preact signals](https://github.com/preactjs/signals) inspired by MobX._
 
+[![npm version](https://img.shields.io/npm/v/react-signals-app?style=flat-square)](https://www.npmjs.com/package/react-signals-app) [![npm bundle size](https://img.shields.io/bundlephobia/minzip/react-signals-app?style=flat-square)](https://bundlephobia.com/result?p=react-signals-app) [![typescript supported](https://img.shields.io/npm/types/typescript?style=flat-square)](https://github.com/betula/react-signals-app)
+
 Signals is a performant state management library with two primary goals:
 
 - Make it as easy as possible to write business logic for small up to complex apps. No matter how complex your logic is, your app updates should stay fast without you needing to think about it. Signals automatically optimize state updates behind the scenes to trigger the fewest updates necessary. They are lazy by default and automatically skip signals that no one listens to.
