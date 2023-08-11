@@ -401,6 +401,8 @@ const html = await isolate(async () => {
 });
 ```
 
+Each isolated instance will be destroyed at the end of the isolated asynchronous function.
+
 ### Describe component logic in OOP-style
 
 ```typescript
