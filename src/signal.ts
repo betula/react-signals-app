@@ -5,5 +5,7 @@ export {
     computed as computedFactory,
     effect as effectOriginal,
     untracked,
-    batch
+    batch,
+    useSignal,
+    useComputed
 } from '@preact/signals-react';

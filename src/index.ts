@@ -2,7 +2,9 @@ export {
   type Signal,
   type ReadonlySignal,
   untracked,
-  batch
+  batch,
+  useSignal,
+  useComputed
 } from './signal';
 
 export { signal, computed } from './core';

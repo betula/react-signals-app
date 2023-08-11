@@ -26,10 +26,10 @@ export const fireImmediately = <T>(expression: () => T, listener: (value: T) => 
   })
 );
 
-export const when = (expression: () => boolean): Promise<void> => {
+export const when = (expression: () => boolean): Promise<void> & { cancel(): void } => {
   let shouldStop = false;
   let ok, fail;
-  const promise = new Promise<void>((resolve, reject) => {
+  const promise: any = new Promise<void>((resolve, reject) => {
     ok = resolve;
     fail = reject;
   });
@@ -46,5 +46,7 @@ export const when = (expression: () => boolean): Promise<void> => {
     stop ? stop() : (shouldStop = true);
   });
   if (shouldStop) stop();
+
+  promise.cancel = stop;
   return promise;
 }
