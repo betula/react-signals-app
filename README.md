@@ -1,4 +1,4 @@
-# React Signals
+# React Signals App
 
 _React application framework based on [Preact signals](https://github.com/preactjs/signals) inspired by MobX._
 
@@ -13,7 +13,7 @@ Signals is a performant state management library with two primary goals:
 yarn add react-signals-app
 ```
 
-- [React Signals](#react-signals)
+- [React Signals App](#react-signals-app)
   - [Installation](#installation)
   - [Guide / API](#guide--api)
     - [`signal(initialValue)`](#signalinitialvalue)
