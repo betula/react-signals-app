@@ -381,6 +381,9 @@ const user = userService.user
 
 // should create and call 'instantiate' method if exists
 userService.instantiate()
+
+// should destroy instance and call 'destroy' method if exists
+userService.destroy();
 ```
 
 ### Isolated services scope for SSR support

@@ -6,7 +6,12 @@ export interface Action<T> {
   subscribe(listener: (value: T) => void): (() => void);
 }
 
-export const action = <T = void>(): Action<T> => {
+export interface LightAction extends Action<void> {
+  (): void;
+  subscribe(listener: () => void): (() => void);
+}
+
+export const action = <T = void>(): T extends void ? LightAction : Action<T> => {
   const fn = event() as any;
   fn.subscribe = (listener) => un(listen(fn, listener));
   return fn;

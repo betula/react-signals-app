@@ -14,6 +14,6 @@ export { isolate } from 'provi/client';
 
 export { effect, reaction, fireImmediately, when } from './reaction';
 
-export { action, type Action } from './action';
+export { action, type Action, type LightAction } from './action';
 export { service } from './service';
 export { hook } from './hook';
