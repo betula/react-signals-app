@@ -4,7 +4,8 @@ export {
   untracked,
   batch,
   useSignal,
-  useComputed
+  useComputed,
+  useSignalEffect
 } from './signal';
 
 export { signal, computed } from './core';

@@ -7,5 +7,6 @@ export {
   untracked,
   batch,
   useSignal,
-  useComputed
+  useComputed,
+  useSignalEffect
 } from '@preact/signals-react';

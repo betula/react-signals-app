@@ -15,6 +15,8 @@ yarn add react-signals-app
 
 - [React Signals App](#react-signals-app)
   - [Installation](#installation)
+  - [Delightful React Integration](#delightful-react-integration)
+    - [Rendering optimizations](#rendering-optimizations)
   - [Guide / API](#guide--api)
     - [`signal(initialValue)`](#signalinitialvalue)
     - [`computed(fn)`](#computedfn)
@@ -33,10 +35,51 @@ yarn add react-signals-app
     - [On demand services](#on-demand-services)
     - [Isolated services scope for SSR support](#isolated-services-scope-for-ssr-support)
     - [Describe component logic in OOP-style](#describe-component-logic-in-oop-style)
-  - [React Integration](#react-integration)
-    - [Hooks](#hooks)
-    - [Rendering optimizations](#rendering-optimizations)
   - [License](#license)
+
+## Delightful React Integration
+
+React adapter allows you to access signals directly inside your components and will automatically subscribe to them.
+
+```typescript
+import { signal } from "react-signals-app";
+
+const count = signal(0);
+
+function CounterValue() {
+	// Whenever the `count` signal is updated, we'll
+	// re-render this component automatically for you
+	return <p>Value: {count.value}</p>;
+}
+```
+
+### Rendering optimizations
+
+The React adapter ships with several optimizations it can apply out of the box to skip virtual-dom rendering entirely. If you pass a signal directly into JSX, it will bind directly to the DOM `Text` node that is created and update that whenever the signal changes.
+
+```typescript
+import { signal } from "react-signals-app";
+
+const count = signal(0);
+
+// Will trigger component to re-render on "count" changes
+function Counter() {
+	return <p>Value: {count.value}</p>;
+}
+
+// Optimized: Will update only text node
+function Counter() {
+	return (
+		<p>
+			<>Value: {count}</>
+		</p>
+	);
+}
+```
+
+To opt into this optimization, simply pass the signal directly instead of accessing the `.value` property.
+
+> **Note** The content is wrapped in a React Fragment due to React 18's newer, more strict children types.
 
 ## Guide / API
 
@@ -423,72 +466,6 @@ useRecipeForm = hook(class {
 
 const form = useRecipeForm(/*(params proposal) param1, param2*/)
 ```
-
-
-## React Integration
-
-React adapter allows you to access signals directly inside your components and will automatically subscribe to them.
-
-```typescript
-import { signal } from "react-signals-app";
-
-const count = signal(0);
-
-function CounterValue() {
-	// Whenever the `count` signal is updated, we'll
-	// re-render this component automatically for you
-	return <p>Value: {count.value}</p>;
-}
-```
-
-### Hooks
-
-If you need to instantiate new signals inside your components, you can use the `useSignal` or `useComputed` hook.
-
-```typescript
-import { useSignal, useComputed } from "react-signals-app";
-
-function Counter() {
-	const count = useSignal(0);
-	const double = useComputed(() => count.value * 2);
-
-	return (
-		<button onClick={() => count.value++}>
-			Value: {count.value}, value x 2 = {double.value}
-		</button>
-	);
-}
-```
-
-### Rendering optimizations
-
-The React adapter ships with several optimizations it can apply out of the box to skip virtual-dom rendering entirely. If you pass a signal directly into JSX, it will bind directly to the DOM `Text` node that is created and update that whenever the signal changes.
-
-```typescript
-import { signal } from "react-signals-app";
-
-const count = signal(0);
-
-// Unoptimized: Will trigger the surrounding
-// component to re-render
-function Counter() {
-	return <p>Value: {count.value}</p>;
-}
-
-// Optimized: Will update the text node directly
-function Counter() {
-	return (
-		<p>
-			<>Value: {count}</>
-		</p>
-	);
-}
-```
-
-To opt into this optimization, simply pass the signal directly instead of accessing the `.value` property.
-
-> **Note** The content is wrapped in a React Fragment due to React 18's newer, more strict children types.
-
 
 ## License
 ISC
