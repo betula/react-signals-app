@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/re-js/react-signals-app.git"
+    "url": "git+https://github.com/betula/react-signals-app.git"
   },
   "keywords": [
     "framework",
@@ -29,9 +29,9 @@
   "author": "Slava Bereza <mail@betula.co>",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/re-js/react-signals-app/issues"
+    "url": "https://github.com/betula/react-signals-app/issues"
   },
-  "homepage": "https://github.com/re-js/react-signals-app#readme",
+  "homepage": "https://github.com/betula/react-signals-app#readme",
   "dependencies": {
     "@preact/signals-react": "^1.3.5",
     "unsubscriber": "^1.0.0",
