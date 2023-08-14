@@ -1,6 +1,6 @@
 {
   "name": "react-signals-app",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "description": "React application framework on preact signals",
   "main": "dist/index.js",
   "files": [
