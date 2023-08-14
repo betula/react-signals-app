@@ -33,7 +33,8 @@ export const when = (expression: () => boolean): Promise<void> & { cancel(): voi
     ok = resolve;
     fail = reject;
   });
-  let stop = effect(() => {
+  let stop;
+  stop = effect(() => {
     let value;
     try {
       value = expression();

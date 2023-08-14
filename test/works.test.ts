@@ -148,3 +148,16 @@ it('when works', async () => {
   await new Promise(r => r(0));
   expect(spy).toBeCalled();
 });
+
+it('when rejected works', async () => {
+  const spy = jest.fn();
+  try {
+    await when(() => {
+      throw 0;
+    })
+  }
+  catch {
+    spy()
+  }
+  expect(spy).toBeCalled();
+});

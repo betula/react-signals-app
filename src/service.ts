@@ -15,7 +15,10 @@ export const service: ServiceFactory = (<T>(Class: (() => T) | (new () => T)) =>
   return new Proxy({}, {
     get(_target, prop) {
       if (prop === DESTROY_KEY) {
-        if (instance) destroy(Class);
+        if (instance) {
+          destroy(Class);
+          instance = void 0;
+        }
         return;
       }
       if (!instance) {

@@ -33,6 +33,17 @@ it('service works', () => {
   expect(destroy_spy).not.toBeCalled();
   service.destroy(s);
   expect(destroy_spy).toBeCalled();
+
+  create_spy.mockReset();
+  destroy_spy.mockReset();
+
+  s.m = 2;
+  expect(s.c).toBe(3);
+  expect(create_spy).toBeCalled();
+
+  expect(destroy_spy).not.toBeCalled();
+  service.destroy(s);
+  expect(destroy_spy).toBeCalled();
 });
 
 it('service instantiate works', () => {

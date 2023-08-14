@@ -1,10 +1,10 @@
-import { useMemo, useEffect } from 'react';
+import React from 'react';
 import { collect, unsubscriber, run } from 'unsubscriber';
 
 export const hook = <T>(Class: (() => T) | (new () => T)): (() => T) => {
 
   return () => {
-    const [instance, unsubs] = useMemo(() => {
+    const [instance, unsubs] = React.useMemo(() => {
       const unsubs = unsubscriber();
       return [
         collect(unsubs, () => (
@@ -16,7 +16,7 @@ export const hook = <T>(Class: (() => T) | (new () => T)): (() => T) => {
       ]
     }, []);
 
-    useEffect(() => () => run(unsubs), [unsubs]);
+    React.useEffect(() => () => run(unsubs), [unsubs]);
     return instance;
   }
 }

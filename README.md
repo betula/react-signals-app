@@ -2,7 +2,10 @@
 
 _React application framework based on [Preact signals](https://github.com/preactjs/signals) inspired by MobX._
 
-[![npm version](https://img.shields.io/npm/v/react-signals-app?style=flat-square)](https://www.npmjs.com/package/react-signals-app) [![npm bundle size](https://img.shields.io/bundlephobia/minzip/react-signals-app?style=flat-square)](https://bundlephobia.com/result?p=react-signals-app) [![typescript supported](https://img.shields.io/npm/types/typescript?style=flat-square)](https://github.com/betula/react-signals-app)
+[![npm version](https://img.shields.io/npm/v/react-signals-app?style=flat-square)](https://www.npmjs.com/package/react-signals-app)
+[![npm bundle size](https://img.shields.io/bundlephobia/minzip/react-signals-app?style=flat-square)](https://bundlephobia.com/result?p=react-signals-app)
+[![code coverage](https://img.shields.io/coveralls/github/betula/react-signals-app?style=flat-square)](https://coveralls.io/github/betula/react-signals-app)
+[![typescript supported](https://img.shields.io/npm/types/typescript?style=flat-square)](https://github.com/betula/react-signals-app)
 
 Signals is a performant state management library with two primary goals:
 
