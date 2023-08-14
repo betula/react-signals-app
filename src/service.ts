@@ -1,39 +1,39 @@
 import { provide, destroy } from "provi/client"
 
-const INSTANTIATE_KEY = 'instantiate';
-const DESTROY_KEY = 'destroy';
+const INSTANTIATE_KEY = Symbol('instantiate');
+const DESTROY_KEY = Symbol('destroy');
 
-export const service = <T>(Class: (() => T) | (new () => T)) => {
+interface ServiceFactory {
+  <T>(Class: (() => T) | (new () => T)): T;
+  instantiate(instance: object);
+  destroy(instance: object);
+}
+
+export const service: ServiceFactory = (<T>(Class: (() => T) | (new () => T)) => {
   let instance;
 
-  const ensure = () => instance ? instance : (instance = provide(Class));
-
-  const proxy = new Proxy({}, {
+  return new Proxy({}, {
     get(_target, prop) {
-      if (prop === INSTANTIATE_KEY) {
-        ensure();
-        const method = instance[INSTANTIATE_KEY];
-        return typeof method !== 'undefined' 
-          ? (...args) => method.apply(instance, args)
-          : () => void 0;
+      if (prop === DESTROY_KEY) {
+        if (instance) destroy(Class);
+        return;
       }
-      else if (prop === DESTROY_KEY) {
-        if (!instance) return () => void 0;
-        const method = instance[DESTROY_KEY];
-        return typeof method !== 'undefined' 
-          ? (...args) => (method.apply(instance, args), destroy(Class))
-          : () => destroy(Class);
+      if (!instance) {
+        instance = provide(Class)
+      };
+      if (prop !== INSTANTIATE_KEY) {
+        return instance[prop];
       }
-      return ensure()[prop]
     },
     set(_target, prop, value) {
-      ensure()[prop] = value;
+      if (!instance) {
+        instance = provide(Class);
+      }
+      instance[prop] = value;
       return true;
     }
   });
+}) as any;
 
-  return proxy as {
-    instantiate(): void;
-    destroy(): void;
-  } & T;
-}
+service.instantiate = (instance: object) => instance[INSTANTIATE_KEY];
+service.destroy = (instance: object) => instance[DESTROY_KEY];

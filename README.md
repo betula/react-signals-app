@@ -179,7 +179,7 @@ name.value = "John";
 You can destroy an effect and unsubscribe from all signals it was subscribed to, by calling the returned function.
 
 ```js
-import { signal, computed, effect } from "@preact/signals-core";
+import { signal, computed, effect } from "react-signals-app";
 
 const name = signal("Jane");
 const surname = signal("Doe");
@@ -249,8 +249,9 @@ for (let i = 0; i < 10; i++) {
 `fireImmediately` is like [`reaction`](#reactionfnfn), but the effect function should immediately be triggered after the first run of the data function.
 
 ```typescript
-class List {
+import { fireImmediately } from "react-signals-app"
 
+class List {
   constructor(authService) {
     fireImmediately(
       () => authService.isLoggedIn, // data function
@@ -263,7 +264,6 @@ class List {
       }
     )
   }
-
   initUserData() {}
   clearUserData() {}
 }
@@ -278,6 +278,8 @@ The `when` function returns a `Promise` with `cancel` method allowing you to can
 This combines nicely with `async / await` to let you wait for changes in reactive state.
 
 ```typescript
+import { when } from "react-signals-app"
+
 async function() {
   await when(() => that.isVisible)
   // etc...
@@ -392,6 +394,8 @@ batch(() => {
 ### Simple and fast actions abstraction
 
 ```typescript
+import { action } from "react-signals-app";
+
 const userLoggedIn = action()
 
 // subscribe to the action
@@ -412,8 +416,10 @@ un(() => {
 ### On demand services
 
 ```typescript
+import { service, un } from "react-signals-app";
+
 // On demand service abstraction
-const userService = service(class {
+export const userService = service(class {
   constructor() {
     un(() => {
       // destroy
@@ -423,12 +429,18 @@ const userService = service(class {
 
 // If you run `userService.user` it's get user property for on demand created service
 const user = userService.user
+```
 
-// should create and call 'instantiate' method if exists
-userService.instantiate()
+In rare cases when it's necessary to initialize a service without invoking any method.
 
-// should destroy instance and call 'destroy' method if exists
-userService.destroy();
+```typescript
+service.instantiate(userService)
+```
+
+In rare case when it's necessary to destroy a service manually.
+
+```typescript
+service.destroy(userService);
 ```
 
 ### Isolated services scope for SSR support
@@ -454,6 +466,8 @@ Each isolated instance will be destroyed at the end of the isolated asynchronous
 ### Describe component logic in OOP-style
 
 ```typescript
+import { hook, un } from "react-signals-app";
+
 useRecipeForm = hook(class {
   constructor(
     //(params proposal)

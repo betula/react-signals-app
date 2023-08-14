@@ -31,7 +31,7 @@ it('service works', () => {
   expect(s.c).toBe(3);
 
   expect(destroy_spy).not.toBeCalled();
-  s.destroy();
+  service.destroy(s);
   expect(destroy_spy).toBeCalled();
 });
 
@@ -45,6 +45,6 @@ it('service instantiate works', () => {
   });
   expect(create_spy).not.toBeCalled();
 
-  s.instantiate();
+  service.instantiate(s);
   expect(create_spy).toBeCalled();
 });
