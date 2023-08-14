@@ -33,7 +33,7 @@
   },
   "homepage": "https://github.com/betula/react-signals-app#readme",
   "dependencies": {
-    "@preact/signals-react": "^1.3.5",
+    "@preact/signals-react": "^1.3.6",
     "unsubscriber": "^1.0.0",
     "provi": "^1.5.2",
     "evemin": "^1.0.0"
